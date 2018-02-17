@@ -1,6 +1,6 @@
-let songs = ["song 1", "song 2", "song 3", "song 4", "song 5", "song 6", "song 7", "song 8", "song 9", "song 10"];
-let artists = ["artist 1", "artist 2", "artist 3", "artist 4", "artist 5", "artist 6", "artist 7", "artist 8", "artist 9", "artist 10"];
-let albums = ["album 1", "album 2", "album 3", "album 4", "album 5", "album 6", "album 7", "album 8", "album 9", "album 10"];
+let songs = ["Ubik", "Get Things Straight", "Release", "Space Oddity", "Great Day", "So What", "A1", "Auditorium", "A Joy", "Opal"];
+let artists = ["Icarus", "LB Lynam", "Pangaea", "David Bowie", "Madvillain", "Miles Davis", "Willow", "Mos Def", "Four Tet", "Bicep"];
+let albums = ["Squid Ink", "Get Things Straight", "Release", "Space Oddity", "Madvillainy", "Kind of Blue", "Willow EP", "The Ecstatic", "Everything Ecstatic", "Bicep LP"];
 
 let songsToDOM = document.getElementById("songs");
 let artistsToDOM = document.getElementById("artists");
@@ -24,51 +24,114 @@ let addInput = function(e) {
     e.preventDefault();
     console.log(e.srcElement.id);
 
+
     switch(e.srcElement.id) {
         case "songBtn":
-            songs.push(userSongSbmt.value);
+            var submittedSong = userSongSbmt.value;
+            songs.push(submittedSong[0].toUpperCase() + submittedSong.substring(1));  
             songsToDOM.innerHTML = songs;
             var category = "songOutputs";
-            var headerSet = `<h3>Vertical Reverse Songs</h3>`;
-            var storeId = "songOutpus"
-            makeReverseVertical(songs, category, headerSet);
-            break;
+            makeReverseVertical(songs, category);
+            makeForwardVertical(songs, category);
+            makeOriginal(songs, category);
+            makeOriginalReverse(songs, category);
+            makeOriginalReverseHorizontal(songs, category);
+        break;
 
         case "artistBtn":
-            artists.push(userArtistSbmt.value);      
+            var submittedArtist = userArtistSbmt.value;
+            artists.push(submittedArtist[0].toUpperCase() + submittedArtist.substring(1));     
             artistsToDOM.innerHTML = artists;
             var category = "artistOutputs";
-            var headerSet = `<h3>Vertical Reverse Artists</h3>`;
-            var storeId = "artistOutpus"
-            makeReverseVertical(artists, category, headerSet);
-            break;
+            makeReverseVertical(artists, category);
+            makeForwardVertical(artists, category);
+            makeOriginal(artists, category);
+            makeOriginalReverse(artists, category);
+            makeOriginalReverseHorizontal(artists, category);
+        break;
 
         case "albumBtn":
-            albums.push(userAlbumSbmt.value);  
+            var submittedAlbum = userAlbumSbmt.value;
+            albums.push(submittedAlbum[0].toUpperCase() + submittedAlbum.substring(1));
             albumsToDOM.innerHTML = albums; 
             var category = "albumOutputs";
-            var headerSet = `<h3>Vertical Reverse Albums</h3>`;
-            var storeId = "albumOutpus"
-
-            makeReverseVertical(albums, category, headerSet);
+            makeReverseVertical(albums, category);
+            makeForwardVertical(albums, category);
+            makeOriginal(albums, category);
+            makeOriginalReverse(albums, category);
+            makeOriginalReverseHorizontal(albums, category);
         break;
     }
 }
 
 
-function makeReverseVertical(userArray, userCat, catHeader){
-    var rvrsVert = document.createElement("div");
-    rvrsVert.innerHTML = catHeader + userArray.sort().reverse().join(`<br>`);
-    document.getElementById(userCat).appendChild(rvrsVert);
+function makeReverseVertical(userArray, inputId){
+    var uniqueId = "rvrs-vert" + inputId;
+    if(document.getElementById(uniqueId) != null){
+        var deleteMe = document.getElementById(uniqueId); // apparently this equals nothing
+        deleteMe.parentNode.removeChild(deleteMe);
+    }
+    
+    var landingDiv = document.createElement("div");
+    landingDiv.setAttribute("id", uniqueId);
+    landingDiv.innerHTML = `<h3>Vertical Descending</h3>` + userArray.slice().sort().reverse().join(`<br>`);
+    document.getElementById(inputId).appendChild(landingDiv);
 }
 
+function makeForwardVertical(userArray, inputId){
+    var uniqueId = "fwd-vert" + inputId;
+    if(document.getElementById(uniqueId) != null){
+        var deleteMe = document.getElementById(uniqueId); // apparently this equals nothing
+        deleteMe.parentNode.removeChild(deleteMe);
+    }
 
+    var landingDiv = document.createElement("div");
+    landingDiv.setAttribute("id", uniqueId);
+    landingDiv.innerHTML = `<h3>Vertical Ascending</h3>` + userArray.slice().sort().join(`<br>`);
+    document.getElementById(inputId).appendChild(landingDiv);
+}
 
+function makeOriginal(userArray, inputId){
+    var uniqueId = "org-vert" + inputId;
 
+    if(document.getElementById(uniqueId) != null){
+        var deleteMe = document.getElementById(uniqueId); // apparently this equals nothing
+        deleteMe.parentNode.removeChild(deleteMe);
+    }
+    var landingDiv = document.createElement("div");
+    landingDiv.setAttribute("id", uniqueId);
 
+    landingDiv.innerHTML = `<h3>Original Input Vertical</h3>` + userArray.slice().join(`<br>`);
+    document.getElementById(inputId).appendChild(landingDiv);
+}
 
+function makeOriginalReverse(userArray, inputId){
+    var uniqueId = "org-rvrs" + inputId;
 
+    if(document.getElementById(uniqueId) != null){
+        var deleteMe = document.getElementById(uniqueId); // apparently this equals nothing
+        deleteMe.parentNode.removeChild(deleteMe);
+    }
+    var landingDiv = document.createElement("div");
+    landingDiv.setAttribute("id", uniqueId);
 
+    landingDiv.innerHTML = `<h3>Original Input Reversed Vertical</h3>` + userArray.slice().reverse().join(`<br>`);
+    document.getElementById(inputId).appendChild(landingDiv);
+}
+
+function makeOriginalReverseHorizontal(userArray, inputId){
+    var uniqueId = "org-rvrs-horizontal" + inputId;
+
+    if(document.getElementById(uniqueId) != null){
+        var deleteMe = document.getElementById(uniqueId); // apparently this equals nothing
+        deleteMe.parentNode.removeChild(deleteMe);
+    }
+    var landingDiv = document.createElement("div");
+    landingDiv.setAttribute("id", uniqueId);
+
+    landingDiv.innerHTML = `<h3>Horizontal Descending Alphabetical</h3>` + userArray.slice().sort().reverse().join(", ");
+    document.getElementById(inputId).appendChild(landingDiv);
+}
 
 
 
@@ -89,9 +152,10 @@ artistButton.addEventListener("click", addInput);
 
 
 
-// let songs = ["song 1", "song 2", "song 3", "song 4", "song 5", "song 6", "song 7", "song 8", "song 9", "song 10"];
-// let artists = ["artist 1", "artist 2", "artist 3", "artist 4", "artist 5", "artist 6", "artist 7", "artist 8", "artist 9", "artist 10"];
-// let albums = ["album 1", "album 2", "album 3", "album 4", "album 5", "album 6", "album 7", "album 8", "album 9", "album 10"];
+
+// let songs = ["Ubik", "Get Things Straight", "Release", "Space Oddity", "Great Day", "So What", "A1", "Auditorium", "A Joy", "Opal"];
+// let artists = ["Icarus", "LB Lynam", "Pangaea", "David Bowie", "Madvillain", "Miles Davs", "Willow", "Mos Def", "Four Tet", "Bicep"];
+// let albums = ["Squid Ink", "Get Things Straight", "Release", "Space Oddity", "Madvillainy", "Kind of Blue", "Willow EP", "The Ecstatic", "Everything Ecstatic", "Bicep LP"];
 
 // let songsToDOM = document.getElementById("songs");
 // let artistsToDOM = document.getElementById("artists");
@@ -114,54 +178,82 @@ artistButton.addEventListener("click", addInput);
 // let addInput = function(e) {
 //     e.preventDefault();
 //     console.log(e.srcElement.id);
+
 
 //     switch(e.srcElement.id) {
 //         case "songBtn":
 //             songs.push(userSongSbmt.value);
 //             songsToDOM.innerHTML = songs;
 //             var category = "songOutputs";
-//             var headerSet = `<h3>Vertical Reverse Songs</h3>`;
-//             var storeId = "songOutpus"
-//             makeReverseVertical(songs, category, headerSet);
+//             makeReverseVertical(songs, category);
+//             makeForwardVertical(songs, category);
+//             makeOriginal(songs, category);
+//             makeOriginalReverse(songs, category);
+//             makeOriginalReverseHorizontal(songs, category);
+
+
 //             break;
 
 //         case "artistBtn":
 //             artists.push(userArtistSbmt.value);      
 //             artistsToDOM.innerHTML = artists;
 //             var category = "artistOutputs";
-//             var headerSet = `<h3>Vertical Reverse Artists</h3>`;
-//             var storeId = "artistOutpus"
-//             makeReverseVertical(artists, category, headerSet);
+//             makeReverseVertical(artists, category);
+//             makeForwardVertical(artists, category);
+//             makeOriginal(artists, category);
+//             makeOriginalReverse(artists, category);
+//             makeOriginalReverseHorizontal(artists, category);
+
+
+
 //             break;
 
 //         case "albumBtn":
 //             albums.push(userAlbumSbmt.value);  
 //             albumsToDOM.innerHTML = albums; 
 //             var category = "albumOutputs";
-//             var headerSet = `<h3>Vertical Reverse Albums</h3>`;
-//             var storeId = "albumOutpus"
+//             makeReverseVertical(albums, category);
+//             makeForwardVertical(albums, category);
+//             makeOriginal(albums, category);
+//             makeOriginalReverse(albums, category);
+//             makeOriginalReverseHorizontal(albums, category);
 
-//             makeReverseVertical(albums, category, headerSet);
 //         break;
 //     }
 // }
 
 
-// function makeReverseVertical(userArray, userCat, catHeader){
-//     var rvrsVert = document.createElement("div");
-//     rvrsVert.innerHTML = catHeader + userArray.sort().reverse().join(`<br>`);
-//     document.getElementById(userCat).appendChild(rvrsVert);
+// function makeReverseVertical(userArray, inputId){
+//     console.log(userArray);
+//     var landingDiv = document.createElement("div");
+//     landingDiv.innerHTML = `<h3>Vertical Descending</h3>` + userArray.slice().sort().reverse().join(`<br>`);
+//     document.getElementById(inputId).appendChild(landingDiv);
 // }
 
+// function makeForwardVertical(userArray, inputId){
+//     var landingDiv = document.createElement("div");
+//     landingDiv.innerHTML = `<h3>Vertical Ascending</h3>` + userArray.slice().sort().join(`<br>`);
+//     document.getElementById(inputId).appendChild(landingDiv);
+// }
 
+// function makeOriginal(userArray, inputId){
+//     var landingDiv = document.createElement("div");
+//     landingDiv.innerHTML = `<h3>Original Input Vertical</h3>` + userArray.slice().join(`<br>`);
+//     document.getElementById(inputId).appendChild(landingDiv);
+// }
 
+// function makeOriginalReverse(userArray, inputId){
+//     console.log(userArray);
+//     var landingDiv = document.createElement("div");
+//     landingDiv.innerHTML = `<h3>Original Input Reversed Vertical</h3>` + userArray.slice().reverse().join(`<br>`);
+//     document.getElementById(inputId).appendChild(landingDiv);
+// }
 
-
-
-
-
-
-
+// function makeOriginalReverseHorizontal(userArray, inputId){
+//     var landingDiv = document.createElement("div");
+//     landingDiv.innerHTML = `<h3>Horizontal Descending Alphabetical</h3>` + userArray.slice().sort().reverse().join(", ");
+//     document.getElementById(inputId).appendChild(landingDiv);
+// }
 
 
 
@@ -170,213 +262,4 @@ artistButton.addEventListener("click", addInput);
 // songButton.addEventListener("click", addInput);
 // albumButton.addEventListener("click", addInput);
 // artistButton.addEventListener("click", addInput);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    // let songs = ["song 1", "song 2", "song 3", "song 4", "song 5", "song 6", "song 7", "song 8", "song 9", "song 10"];
-    // let artists = ["artist 1", "artist 2", "artist 3", "artist 4", "artist 5", "artist 6", "artist 7", "artist 8", "artist 9", "artist 10"];
-    // let albums = ["album 1", "album 2", "album 3", "album 4", "album 5", "album 6", "album 7", "album 8", "album 9", "album 10"];
-    
-    // let songsToDOM = document.getElementById("songs");
-    // let albumsToDOM = document.getElementById("albums");
-    // let artistsToDOM = document.getElementById("artists");
-    
-    // songsToDOM.innerHTML = songs.join(", ");
-    // albumsToDOM.innerHTML = albums.join(", ");
-    // artistsToDOM.innerHTML = artists.join(", ");
-    
-    // let songButton = document.getElementById("songBtn");
-    // let albumButton = document.getElementById("albumBtn");
-    // let artistButton = document.getElementById("artistBtn");
-    
-    // let userSongSbmt = document.getElementById("userSong");
-    // let userAlbumSbmt = document.getElementById("userAlbum");
-    // let userArtistSbmt = document.getElementById("userArtist");
-    
-    
-    // let addInput = function(e) {
-    //     e.preventDefault();
-    //     console.log(e.srcElement.id);
-    
-    //     switch(e.srcElement.id) {
-    //         case "songBtn":
-    //             songs.push(userSongSbmt.value);
-    //             songsToDOM.innerHTML = songs;
-    //             let category = "songs";
-    //             makeReverseVertical(songs, category);
-    //             break;
-    
-    //         case "artistBtn":
-    //             artists.push(userArtistSbmt.value);      
-    //             artistsToDOM.innerHTML = artists;
-    //             let category = "artists";
-    //             makeReverseVertical(artists, category);
-    //             break;
-    
-    //         case "albumBtn":
-    //             albums.push(userAlbumSbmt.value);  
-    //             albumsToDOM.innerHTML = albums; 
-    //             let category = "albums"
-    //             makeReverseVertical(albums, category);
-    //             break;
-    //     }
-    // }
-    
-    
-    // function makeReverseVertical(userArray, userCat){
-    
-    //     switch(userCat) {
-    //         case "songs":
-    //             var rvrsVert = document.createElement("div");
-    //             // rvrsVert.id = "reverse-vertical-songs";
-    //             rvrsVert.innerHTML = `<h3>Vertical Reverse Songs</h3>` + userArray.sort().reverse().join(`<br>`);
-    //             document.getElementById("outputs").appendChild(rvrsVert);
-    //         break;
-    
-    //         case "artists":
-    //             var rvrsVert = document.createElement("div");
-    //             // rvrsVert.id = "reverse-vertical-songs";
-    //             rvrsVert.innerHTML = `<h3>Vertical Reverse Artists</h3>` + userArray.sort().reverse().join(`<br>`);
-    //             document.getElementById("outputs").appendChild(rvrsVert);
-    //         break;
-    //     }
-    
-    
-    
-    
-    
-    //     }
-        
-    
-    
-    
-    // // var btn = document.createElement("div");        // Create a <button> element
-    // // var t = document.createTextNode("CLICK ME");       // Create a text node
-    // // btn.appendChild(t);                                // Append the text to <button>
-    // // document.body.appendChild(btn);  
-    
-    
-    // songButton.addEventListener("click", addInput);
-    // albumButton.addEventListener("click", addInput);
-    // artistButton.addEventListener("click", addInput);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// var btn = document.createElement("div");        // Create a <button> element
-// var t = document.createTextNode("CLICK ME");       // Create a text node
-// btn.appendChild(t);                                // Append the text to <button>
-// document.body.appendChild(btn);  
-
-
-
-
-
-
-
-
-
-
-
-
-// let songs = ["song 1", "song 2", "song 3", "song 4", "song 5", "song 6", "song 7", "song 8", "song 9", "song 10"];
-// let artists = ["artist 1", "artist 2", "artist 3", "artist 4", "artist 5", "artist 6", "artist 7", "artist 8", "artist 9", "artist 10"];
-// let albums = ["album 1", "album 2", "album 3", "album 4", "album 5", "album 6", "album 7", "album 8", "album 9", "album 10"];
-
-// let songsToDOM = document.getElementById("songs");
-// let albumsToDOM = document.getElementById("albums");
-// let artistsToDOM = document.getElementById("artists");
-
-// songsToDOM.innerHTML = songs.join(", ");
-// albumsToDOM.innerHTML = albums.join(", ");
-// artistsToDOM.innerHTML = artists.join(", ");
-
-// let songButton = document.getElementById("songBtn");
-// let albumButton = document.getElementById("albumBtn");
-// let artistButton = document.getElementById("artistBtn");
-
-// let userSongSbmt = document.getElementById("userSong");
-// let userAlbumSbmt = document.getElementById("userAlbum");
-// let userArtistSbmt = document.getElementById("userArtist");
-
-
-
-
-
-// let addInput = function(e) {
-//     e.preventDefault();
-//     console.log(e.srcElement.id);
-
-//     switch(e.srcElement.id) {
-//         case "songBtn":
-//             songs.push(userSongSbmt.value);
-//             songsToDOM.innerHTML = songs;
-//             makeReverseVertical(songs);
-//             break;
-
-//         case "artistBtn":
-//             artists.push(userArtistSbmt.value);      
-//             artistsToDOM.innerHTML = artists;
-//             makeReverseVertical(artists);
-//             break;
-
-//         case "albumBtn":
-//             albums.push(userAlbumSbmt.value);  
-//             albumsToDOM.innerHTML = albums; 
-//             makeReverseVertical(albums);
-//             break;
-//     }
-// }
-
-
-// function makeReverseVertical(userArray){
-//     document.getElementById("reverse-vertical").innerHTML = `<h3>Vertical</h3>` + userArray.sort().reverse().join(`<br>`);
-    
-// }
-
-
-// var btn = document.createElement("div");        // Create a <button> element
-// var t = document.createTextNode("CLICK ME");       // Create a text node
-// btn.appendChild(t);                                // Append the text to <button>
-// document.body.appendChild(btn);  
-
-
-// songButton.addEventListener("click", addInput);
-// albumButton.addEventListener("click", addInput);
-// artistButton.addEventListener("click", addInput);
-
-
-
-
-
-
-
 
