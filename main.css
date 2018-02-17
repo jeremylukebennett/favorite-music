@@ -1,0 +1,25 @@
+body {
+    font-size: .8em;
+}
+
+#array-diplay {
+    text-align: center;
+}
+
+form {
+    background-color: tomato;
+    padding: 2em 0;
+    text-align: center;
+}
+
+#outputs {
+    margin: .3em;
+    border: 1px solid red;
+}
+
+#outputs > span{
+    /* margin: 2em; */
+    border: 1px solid green;
+    display: inline-block;
+    /* margin: 0 -3 0 0; */
+}
