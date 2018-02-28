@@ -1,9 +1,26 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
 body {
     font-size: .8em;
 }
 
+button {
+    padding: .4em;
+    border-radius: 11px;
+}
+
 #array-diplay {
     text-align: center;
+    background-color: palegreen;
+    padding: 0 0 2em 0;
+    margin-bottom: -2.5em;
+}
+
+#array-diplay > div > h2{
+    padding: 1em 0 .4em 0;
 }
 
 form {
@@ -14,12 +31,22 @@ form {
 
 #outputs {
     margin: .3em;
-    border: 1px solid red;
+}
+
+div#outputs {
+    display: flex;
+    justify-content: space-around;
+}
+
+#outputs h1, #outputs h3 {
+    padding-top: 2em;
+
 }
 
 #outputs > span{
-    /* margin: 2em; */
-    border: 1px solid green;
     display: inline-block;
-    /* margin: 0 -3 0 0; */
+}
+
+span#songOutputs, span#artistOutputs, span#albumOutputs {
+    width: 30%;
 }
